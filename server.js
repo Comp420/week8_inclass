@@ -10,13 +10,14 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'))
 
+app.set('port', (process.env.PORT || 3000))
 app.set('view engine', 'ejs')
 
 MongoClient.connect(dbAddr, (err, database) => {
     if (err) return console.log(err)
     db = database
-    app.listen(3000, function() {
-        console.log('I am listening on port 3000')
+    app.listen(app.get('port'), function() {
+        console.log('I am listening on port ' + app.get('port'));
     })
 })
 
